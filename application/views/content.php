@@ -47,12 +47,17 @@
             <th>Product Name </th>
             <th>Product Price </th>
             <th>Product Description </th>
+            <th>Edit</th>
+            <th>Delete</th>
+
         </tr>
         <?php foreach ($products as $product):?>
         <tr>
             <td><?php echo $product->product_name;?> </td>
             <td><?php echo $product->product_price;?> </td>
             <td><?php echo $product->product_description;?> </td>
+            <td> <a href="<?php echo site_url('content/'.$product->id . '/edit') ?>" target=" _blank">Edit</a> </td>
+            <td> <a href="<?php echo site_url('content/'.$product->id . '/delete') ?>">Delete</a> </td>
         </tr>
         <?php endforeach;?>
     </table>

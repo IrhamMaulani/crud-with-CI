@@ -35,19 +35,11 @@ class Product extends CI_Controller
 
     public function edit($id = null)
     {
+        $product = $this->product_model;
+
         if (!isset($id)) {
             redirect('content');
         }
-       
-        $product = $this->product_model;
-        $validation = $this->form_validation;
-        $validation->set_rules($product->rules());
-
-        if ($validation->run()) {
-            $product->update();
-            $this->session->set_flashdata('success', 'Berhasil disimpan');
-        }
-
         $data["product"] = $product->getById($id);
         if (!$data["product"]) {
             show_404();
@@ -56,12 +48,26 @@ class Product extends CI_Controller
         $this->load->view("edit_form", $data);
     }
 
+    public function update()
+    {
+        $product = $this->product_model;
+        $validation = $this->form_validation;
+        $validation->set_rules($product->rules());
+        
+        if ($validation->run()) {
+            $product->update();
+            $this->session->set_flashdata('success', 'Berhasil diedit');
+            redirect("content");
+        } else {
+            $this->session->set_flashdata('success', 'Gagal diedit');
+        }
+    }
+
     public function delete($id=null)
     {
         if (!isset($id)) {
             show_404();
         }
-        
         if ($this->product_model->delete($id)) {
             redirect(site_url('content'));
         }
