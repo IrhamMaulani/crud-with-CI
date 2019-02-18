@@ -33,4 +33,9 @@ class Welcome extends CI_Controller
     {
         $this->load->view('contact_us');
     }
+
+    public function content()
+    {
+        $this->load->view('content');
+    }
 }
